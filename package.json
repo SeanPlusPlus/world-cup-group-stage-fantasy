@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "csvtojson": "^2.0.10"
+    "csv-parse": "^5.3.2"
+  },
+  "devDependencies": {
+    "standard": "^17.0.0"
   }
 }
