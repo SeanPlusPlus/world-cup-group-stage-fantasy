@@ -51,13 +51,6 @@ fs.createReadStream(csvFilePath)
 const getEntry = (str) => ({ name: str.split(' ')[0], score: 0 })
 
 const getScores = (entry) => {
-  if (entry.Group_A_1.name === FINAL.Group_A_1) {
-    entry.Group_A_1.score = FIRST
-  }
-  if (entry.Group_A_2.name === FINAL.Group_A_2) {
-    entry.Group_A_2.score = SECOND
-  }
-
   const keys = _sortBy(Object.keys(FINAL))
   keys.forEach((k, i) => {
     const is_first_seed = i % 2 === 0
