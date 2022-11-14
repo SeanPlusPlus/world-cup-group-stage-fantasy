@@ -10,7 +10,7 @@ const SECOND = 3
 const FINAL = {
   Group_A_1: 'Netherlands',
   Group_A_2: 'Senegal',
-  Group_B_1: '',
+  Group_B_1: 'USA',
   Group_B_2: '',
   Group_C_1: '',
   Group_C_2: '',
@@ -32,9 +32,9 @@ fs.createReadStream(csvFilePath)
     const entry = {
       ts: row[0],
       name: row[1],
-      total: 0,
+      total: 0
     }
-    
+
     const keys = _sortBy(Object.keys(FINAL))
     keys.forEach((k, i) => {
       const idx = i + 2
@@ -44,8 +44,11 @@ fs.createReadStream(csvFilePath)
     entries.push(entry)
   })
   .on('end', function () {
-    const scores = entries.map((e) => getScores(e))
+    const scores = _sortBy(entries.map((e) => getScores(e)), (e) => e.total)
     console.log(scores)
+
+    const totals = scores.map((s) => ({ name: s.name, total: s.total }))
+    console.log(totals)
   })
 
 const getEntry = (str) => ({ name: str.split(' ')[0], score: 0 })
