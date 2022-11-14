@@ -8,9 +8,9 @@ const FIRST = 7
 const SECOND = 3
 
 const FINAL = {
-  Group_A_1: 'Netherlands',
-  Group_A_2: 'Senegal',
-  Group_B_1: 'USA',
+  Group_A_1: '',
+  Group_A_2: '',
+  Group_B_1: '',
   Group_B_2: '',
   Group_C_1: '',
   Group_C_2: '',
