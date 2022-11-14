@@ -9,7 +9,7 @@ const SECOND = 3
 const FINAL = {
   Group_A_1: 'Netherlands',
   Group_A_2: 'Senegal',
-  Group_B_1: '', 
+  Group_B_1: '',
   Group_B_2: '',
   Group_C_1: '',
   Group_C_2: '',
@@ -22,7 +22,7 @@ const FINAL = {
   Group_G_1: '',
   Group_G_2: '',
   Group_H_1: '',
-  Group_H_2: '',
+  Group_H_2: ''
 }
 
 fs.createReadStream(csvFilePath)
@@ -46,15 +46,14 @@ fs.createReadStream(csvFilePath)
       Group_G_1: getEntry(row[14]),
       Group_G_2: getEntry(row[15]),
       Group_H_1: getEntry(row[16]),
-      Group_H_2: getEntry(row[17]),
+      Group_H_2: getEntry(row[17])
     }
     entries.push(entry)
   })
   .on('end', function () {
     const scores = entries.map((e) => getScores(e))
-    console.log(scores);
+    console.log(scores)
   })
-
 
 const getEntry = (str) => ({ name: str.split(' ')[0], score: 0 })
 
