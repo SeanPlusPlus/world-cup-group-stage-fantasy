@@ -44,6 +44,8 @@ fs.createReadStream(csvFilePath)
     entries.push(entry)
   })
   .on('end', function () {
+    fs.writeFileSync('data.json', JSON.stringify(entries))
+
     const scores = _sortBy(entries.map((e) => getScores(e)), (e) => e.total)
     console.log(scores)
 
@@ -56,12 +58,12 @@ const getEntry = (str) => ({ name: str.split(' ')[0], score: 0 })
 const getScores = (entry) => {
   const keys = _sortBy(Object.keys(FINAL))
   keys.forEach((k, i) => {
-    const is_first_seed = i % 2 === 0
-    if (entry[k].name === FINAL[k] && is_first_seed) {
+    const isFirstSeed = i % 2 === 0
+    if (entry[k].name === FINAL[k] && isFirstSeed) {
       entry[k].score = FIRST
       entry.total += FIRST
     }
-    if (entry[k].name === FINAL[k] && !is_first_seed) { // second place
+    if (entry[k].name === FINAL[k] && !isFirstSeed) { // second place
       entry[k].score = SECOND
       entry.total += SECOND
     }
