@@ -8,7 +8,7 @@ const SECOND = 3
 
 const FINAL = {
   Group_A_1: 'Netherlands',
-  Group_A_2: 'Ecuador',
+  Group_A_2: 'Senegal',
   Group_B_1: '', 
   Group_B_2: '',
   Group_C_1: '',
@@ -59,9 +59,11 @@ fs.createReadStream(csvFilePath)
 const getEntry = (str) => ({ name: str.split(' ')[0], score: 0 })
 
 const getScores = (entry) => {
-  let total = 0
   if (entry.Group_A_1.name === FINAL.Group_A_1) {
     entry.Group_A_1.score = FIRST
+  }
+  if (entry.Group_A_2.name === FINAL.Group_A_2) {
+    entry.Group_A_2.score = SECOND
   }
   return entry
 }
