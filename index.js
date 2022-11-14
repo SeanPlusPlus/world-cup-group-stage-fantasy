@@ -29,8 +29,13 @@ fs.createReadStream(csvFilePath)
     entries.push(entry)
   })
   .on('end', function () {
-    console.log(entries)
+    const scores = entries.map(e, getScores(e))
+    console.log(scores);
   })
 
 
 const getEntry = (str) => ({ name: str.split(' ')[0] })
+
+const getScores = (entry) => {
+  return entry
+}
