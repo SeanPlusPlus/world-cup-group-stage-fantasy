@@ -1,5 +1,6 @@
 const fs = require('fs')
 const { parse } = require('csv-parse')
+const _sortBy = require('lodash/sortBy')
 const csvFilePath = './data.csv'
 const entries = []
 
@@ -31,23 +32,15 @@ fs.createReadStream(csvFilePath)
     const entry = {
       ts: row[0],
       name: row[1],
-      Group_A_1: getEntry(row[2]),
-      Group_A_2: getEntry(row[3]),
-      Group_B_1: getEntry(row[4]),
-      Group_B_2: getEntry(row[5]),
-      Group_C_1: getEntry(row[6]),
-      Group_C_2: getEntry(row[7]),
-      Group_D_1: getEntry(row[8]),
-      Group_D_2: getEntry(row[9]),
-      Group_E_1: getEntry(row[10]),
-      Group_E_2: getEntry(row[11]),
-      Group_F_1: getEntry(row[12]),
-      Group_F_2: getEntry(row[13]),
-      Group_G_1: getEntry(row[14]),
-      Group_G_2: getEntry(row[15]),
-      Group_H_1: getEntry(row[16]),
-      Group_H_2: getEntry(row[17])
+      total: 0,
     }
+    
+    const keys = _sortBy(Object.keys(FINAL))
+    keys.forEach((k, i) => {
+      const idx = i + 2
+      entry[k] = getEntry(row[idx])
+    })
+
     entries.push(entry)
   })
   .on('end', function () {
@@ -64,5 +57,19 @@ const getScores = (entry) => {
   if (entry.Group_A_2.name === FINAL.Group_A_2) {
     entry.Group_A_2.score = SECOND
   }
+
+  const keys = _sortBy(Object.keys(FINAL))
+  keys.forEach((k, i) => {
+    const is_first_seed = i % 2 === 0
+    if (entry[k].name === FINAL[k] && is_first_seed) {
+      entry[k].score = FIRST
+      entry.total += FIRST
+    }
+    if (entry[k].name === FINAL[k] && !is_first_seed) { // second place
+      entry[k].score = SECOND
+      entry.total += SECOND
+    }
+  })
+
   return entry
 }
