@@ -33,4 +33,4 @@ fs.createReadStream(csvFilePath)
   })
 
 
-const getEntry = (str) => (str.split(' ')[0])
+const getEntry = (str) => ({ name: str.split(' ')[0] })
