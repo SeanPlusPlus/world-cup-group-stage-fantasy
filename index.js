@@ -31,7 +31,7 @@ fs.createReadStream(csvFilePath)
   .on('data', function (row) {
     const entry = {
       ts: row[0],
-      name: row[1],
+      name: row[20],
       total: 0
     }
 
@@ -48,9 +48,8 @@ fs.createReadStream(csvFilePath)
 
     const scores = _sortBy(entries.map((e) => getScores(e)), (e) => e.total)
     console.log(scores)
-
-    const totals = scores.map((s) => ({ name: s.name, total: s.total }))
-    console.log(totals)
+    const json = JSON.stringify(scores)
+    fs.writeFileSync('./entries.json', json)
   })
 
 const getEntry = (str) => ({ name: str.split(' ')[0], score: 0 })
