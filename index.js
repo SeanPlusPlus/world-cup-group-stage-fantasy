@@ -32,7 +32,7 @@ fs.createReadStream(csvFilePath)
     const entry = {
       ts: row[0],
       name: row[20],
-      total: 0
+      total: null
     }
 
     const keys = _sortBy(Object.keys(FINAL))
@@ -46,14 +46,14 @@ fs.createReadStream(csvFilePath)
   .on('end', function () {
     fs.writeFileSync('data.json', JSON.stringify(entries))
 
-    const scores = _sortBy(entries.map((e) => getScores(e)), (e) => e.total)
-    console.log(scores)
-    const json = JSON.stringify(scores)
+    const data = _sortBy(entries, (e) => e.name)
+    const json = JSON.stringify(data)
     fs.writeFileSync('./entries.json', json)
   })
 
-const getEntry = (str) => ({ name: str.split(' ')[0], score: 0 })
+const getEntry = (str) => ({ name: str.split(' ')[0], score: null })
 
+// to be implemented in web app
 const getScores = (entry) => {
   const keys = _sortBy(Object.keys(FINAL))
   keys.forEach((k, i) => {
