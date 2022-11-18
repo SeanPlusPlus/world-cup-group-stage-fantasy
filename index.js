@@ -31,6 +31,7 @@ fs.createReadStream(csvFilePath)
   .on('data', function (row) {
     const entry = {
       ts: row[0],
+      nick_name: row[1],
       name: row[20],
       total: null
     }
